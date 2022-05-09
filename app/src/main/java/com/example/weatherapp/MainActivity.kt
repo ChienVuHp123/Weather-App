@@ -37,8 +37,9 @@ class MainActivity : AppCompatActivity() {
         override fun doInBackground(vararg params: String?): String? {
             var response:String?
             try{
-                response = URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API").readText(
-                    Charsets.UTF_8
+                response = URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API").readText(   // truyen api theo ten CITY
+                    // day la ma api de dung do C
+                    Charsets.UTF_8 
                 )
             }catch (e: Exception){
                 response = null
@@ -50,10 +51,10 @@ class MainActivity : AppCompatActivity() {
             super.onPostExecute(result)
             try {
                 /* Extracting JSON returns from the API */
-                val jsonObj = JSONObject(result)
-                val main = jsonObj.getJSONObject("main")
+                val jsonObj = JSONObject(result)        // Kieu json để đọc dữ liệu trong api
+                val main = jsonObj.getJSONObject("main")             // tra ve nhung thong so như mưa, tuyến
                 val sys = jsonObj.getJSONObject("sys")
-                val wind = jsonObj.getJSONObject("wind")
+                val wind = jsonObj.getJSONObject("wind")            // tra ve nhung thong so 
                 val weather = jsonObj.getJSONArray("weather").getJSONObject(0)
 
                 val updatedAt:Long = jsonObj.getLong("dt")
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
                 /* Populating extracted data into our views */
                 findViewById<TextView>(R.id.address).text = address
-                findViewById<TextView>(R.id.updated_at).text =  updatedAtText
+                findViewById<TextView>(R.id.updated_at).text =  updatedAtText                                        // đổ dữ liệu vào màn hình theo mã id đã cài đặt
                 findViewById<TextView>(R.id.status).text = weatherDescription.capitalize()
                 findViewById<TextView>(R.id.temp).text = temp
                 findViewById<TextView>(R.id.temp_min).text = tempMin
