@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
         // 1.Gia tri bien duoc truyen vao khi thuc thi va dc truyen vao doinbackground
         // 2.La gia tri bien de update ui luc tien hanh thuc thi, duoc truyen vao onProgressUpdate
         // 3.result la bien de luu ket qua sau khi tien trinh duoc thuc hien xong
-        override fun onPreExecute() {
+        
+        override fun onPreExecute() {   //Tự động được gọi đầu tiên khi tiến trình được kích hoạt.
             super.onPreExecute()
             /* Showing the ProgressBar, Making the main design GONE */
             findViewById<ProgressBar>(R.id.loader).visibility = View.VISIBLE
