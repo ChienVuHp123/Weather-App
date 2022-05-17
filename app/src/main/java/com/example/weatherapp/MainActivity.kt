@@ -27,9 +27,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     inner class weatherTask() : AsyncTask<String, Void, String>() {    // lop long nhau
-        // Gia tri bien duoc truyen vao khi thuc thi va dc truyen vao doinbackground
-        // La gia tri bien de update ui luc tien hanh thuc thi, duoc truyen vao onProgressUpdate
-        // result la bien de luu ket qua sau khi tien trinh duoc thuc hien xong
+        // 1.Gia tri bien duoc truyen vao khi thuc thi va dc truyen vao doinbackground
+        // 2.La gia tri bien de update ui luc tien hanh thuc thi, duoc truyen vao onProgressUpdate
+        // 3.result la bien de luu ket qua sau khi tien trinh duoc thuc hien xong
         override fun onPreExecute() {
             super.onPreExecute()
             /* Showing the ProgressBar, Making the main design GONE */
@@ -40,16 +40,16 @@ class MainActivity : AppCompatActivity() {
 
         // ham nay de thuc hien cac tac vu chay ngam
         override fun doInBackground(vararg params: String?): String? {
-            var response:String?    // bien nay se thuc thi nhung req
+            var response:String?    // bien nay se nhận phản hồi string từ api
             try{
                 response = URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API").readText(   // truyen api theo ten CITY
-                    // day la link api de do do C
+                    //Đọc toàn bộ nội dung của URL này dưới dạng Chuỗi sử dụng UTF-8
                     Charsets.UTF_8 
                 )
             }catch (e: Exception){
                 response = null
             }
-            return response
+            return response //Trả về một chuỗi với toàn bộ nội dung URL này
         }
 
         override fun onPostExecute(result: String?) {
