@@ -1,6 +1,6 @@
 package com.example.weatherapp
 
-import android.os.AsyncTask
+import android.os.AsyncTask              // xu ly cong viec o luong background, giao tiep voi ui ma khong can handle
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -12,10 +12,11 @@ import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 
+//openweathermap
 class MainActivity : AppCompatActivity() {
 
     val CITY: String = "HaNoi"
-    val API: String = "0e41ee82c9583403eca4e45538249841" // Use API key
+    val API: String = "0e41ee82c9583403eca4e45538249841" // Use API key => de truyen vao api
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +26,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    inner class weatherTask() : AsyncTask<String, Void, String>() {
+    inner class weatherTask() : AsyncTask<String, Void, String>() {    // lop long nhau
+        // Gia tri bien duoc truyen vao khi thuc thi va dc truyen vao doinbackground
+        // La gia tri bien de update ui luc tien hanh thuc thi, duoc truyen vao onProgressUpdate
+        // result la bien de luu ket qua sau khi tien trinh duoc thuc hien xong
         override fun onPreExecute() {
             super.onPreExecute()
             /* Showing the ProgressBar, Making the main design GONE */
@@ -34,11 +38,12 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.errortext).visibility = View.GONE
         }
 
+        // ham nay de thuc hien cac tac vu chay ngam
         override fun doInBackground(vararg params: String?): String? {
-            var response:String?
+            var response:String?    // bien nay se thuc thi nhung req
             try{
                 response = URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API").readText(   // truyen api theo ten CITY
-                    // day la ma api de dung do C
+                    // day la link api de do do C
                     Charsets.UTF_8 
                 )
             }catch (e: Exception){
