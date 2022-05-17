@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         // ham nay de thuc hien cac tac vu chay ngam
         override fun doInBackground(vararg params: String?): String? {
-            var response:String?    // bien nay se nhận phản hồi string từ api
+            var response:String?    // bien nay se nhận phản hồi từ api
             try{
                 response = URL("https://api.openweathermap.org/data/2.5/weather?q=$CITY&units=metric&appid=$API").readText(   // truyen api theo ten CITY
                     //Đọc toàn bộ nội dung của URL này dưới dạng Chuỗi sử dụng UTF-8
@@ -56,10 +56,10 @@ class MainActivity : AppCompatActivity() {
             super.onPostExecute(result)
             try {
                 /* Extracting JSON returns from the API */
-                val jsonObj = JSONObject(result)        // Kieu json để đọc dữ liệu trong api
-                val main = jsonObj.getJSONObject("main")             // tra ve nhung thong so như mưa, tuyến
+                val jsonObj = JSONObject(result)        // Kieu json để đọc dữ liệu
+                val main = jsonObj.getJSONObject("main")             // đọc dữ liệu từ result đã được thực hiện ở hàm doinbackground
                 val sys = jsonObj.getJSONObject("sys")
-                val wind = jsonObj.getJSONObject("wind")            // tra ve nhung thong so 
+                val wind = jsonObj.getJSONObject("wind")            
                 val weather = jsonObj.getJSONArray("weather").getJSONObject(0)
 
                 val updatedAt:Long = jsonObj.getLong("dt")
